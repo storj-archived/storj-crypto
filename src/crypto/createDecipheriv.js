@@ -6,17 +6,6 @@ var crypto = require('browserify-aes')
 // Streaming mode is used by the node implementation so
 // we resort to requiring AES in pure ja for now
 
-// let webcrypto
-// try {
-//   webcrypto = window.crypto
-// } catch (err) {
-//   // not available, use the code below
-// }
-
-//if (webcrypto){
-//  module.exports = require('./createDecipheriv-browser')
-//} else {
-  module.exports = function(enc, key, iv) {
-    return crypto.createDecipheriv(enc, key, iv)
-  }
-//}
+module.exports = function(enc, key, iv) {
+  return crypto.createDecipheriv(enc, key, iv)
+}
