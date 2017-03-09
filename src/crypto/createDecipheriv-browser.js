@@ -31,8 +31,6 @@ function DecryptStream(enc, key, iv) {
     self.algorithm.length = 128
   });
 
-  //this.iv = iv;
-
   stream.Transform.call(this);
 }
 
@@ -45,7 +43,6 @@ util.inherits(DecryptStream, stream.Transform);
 DecryptStream.prototype._transform = function(chunk, enc, callback) {
   console.log('chunk piped to from concat s')
   console.log(chunk)
-  //console.log(this.iv.length)
   var self = this;
   // window.crypto.subtle.decrypt(
   //   { 
@@ -107,6 +104,7 @@ DecryptStream.prototype._flush = function(callback) {
 
 module.exports = function(enc, key, iv) {
   // do webcrypto here
+  var decipher = ciphers.createDecipheriv(mode, key, iv)
   var ds = new DecryptStream(enc, key, iv)
   return ds
 }

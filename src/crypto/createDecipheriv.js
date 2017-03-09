@@ -1,18 +1,22 @@
 'use strict'
 
-let webcrypto
-try {
-  webcrypto = window.crypto
-} catch (err) {
-  // not available, use the code below
-}
+var crypto = require('browserify-aes')
 
-if (webcrypto){
-  module.exports = require('./createDecipheriv-browser')
-} else {
-  // do node crypto here
-  var crypto = require('crypto')
+// NOTE: There is no streaming mode in AES-CTR for webcrypto
+// Streaming mode is used by the node implementation so
+// we resort to requiring AES in pure ja for now
+
+// let webcrypto
+// try {
+//   webcrypto = window.crypto
+// } catch (err) {
+//   // not available, use the code below
+// }
+
+//if (webcrypto){
+//  module.exports = require('./createDecipheriv-browser')
+//} else {
   module.exports = function(enc, key, iv) {
     return crypto.createDecipheriv(enc, key, iv)
   }
-}
+//}
