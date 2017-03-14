@@ -10,12 +10,13 @@ try {
 if (webcrypto){
   module.exports = require('./createHash-browser')
 } else {
+  var crypto = require('crypto')
   module.exports = function(alg) {
     var self = {}
     self.alg = alg
     self.update = update
     self.digest = digest
-    self.msg = []
+    self.hash = crypto.createHash(alg)
     return self
   }
 
@@ -23,7 +24,7 @@ if (webcrypto){
     if (typeof message === 'string') {
       message = Buffer.from(message, 'utf-8');
     }
-    this.msg.push(message)
+    this.hash.update(message)
     return this
   }
 
@@ -32,8 +33,6 @@ if (webcrypto){
       cb = enc
       enc = undefined
     }
-    var crypto = require('crypto')
-    var newBuffer = Buffer.concat(this.msg)
-    return cb(null, crypto.createHash(this.alg).update(newBuffer).digest(enc))
+    return cb(null, this.hash.digest(enc))
   }
 }
