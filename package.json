@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Storj/storj-crypto",
   "dependencies": {
     "browserify-aes": "^1.0.6",
+    "crypto-async": "^1.0.2",
     "readable-stream": "^2.2.3"
   }
 }

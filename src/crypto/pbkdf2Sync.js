@@ -2,7 +2,7 @@
 
 let webcrypto
 try {
-  webcrypto = window.crypto
+  webcrypto = self.crypto
 } catch (err) {
   // not available, use the code below
 }

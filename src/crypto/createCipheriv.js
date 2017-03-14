@@ -6,6 +6,6 @@ var crypto = require('browserify-aes')
 // Streaming mode is used by the node implementation so
 // we resort to requiring AES in pure ja for now
 
-module.exports = function(enc, key, iv) {
-  return crypto.createCipheriv(enc, key, iv)
+module.exports = function(AES, key, iv) {
+  return crypto.createCipheriv(AES, key, iv)
 }
